@@ -1,9 +1,5 @@
 const express = require('express');
 const {
-  UserLogin,
-  UserRegister,
-} = require('../controller/users');
-const {
   createPrompt,
   getPrompts,
   updateLikes,
