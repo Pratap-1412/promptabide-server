@@ -53,8 +53,17 @@ const RegisterUser = async (req, res) => {
             from: 'studymateeasy@gmail.com',
             to: email,
             subject: 'Email Verification',
-            html: `<p>Click <a href="http://localhost:3000/verify-email/?token=${verificationToken}">here</a> to verify your email.</p>`,
+            html: `<p>Dear ${user.firstname},</p>
+                   <p>Thank you for choosing PromptAbide - your go-to platform for collaborative AI  platform!</p>
+                   <p>We're thrilled to have you on board. To ensure the security of your account and unlock the full potential of PromptAbide, please take a moment to verify your email by clicking 
+                   <a href="https://promptabide-server.onrender.com/verify-email/?token=${verificationToken}">here</a>.</p>
+                   <p><strong>Why Verify Your Email?</strong></p>
+                   <p>Verifying your email helps us keep your account secure and ensures you receive important updates, notifications, and personalized recommendations tailored just for you.</p>
+                   <p>Remember, your journey with PromptAbide is just beginning, and we're here to support you every step of the way.</p>
+                   <p>Thank you for joining our community of learners!</p>
+                   <p>Best Regards,<br/>The PromptAbide Team</p>`,
         };
+        
 
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
