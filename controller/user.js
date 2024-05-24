@@ -33,46 +33,8 @@ const RegisterUser = async (req, res) => {
         // Save the user to the database
         await user.save();
 
-        // Send verification email
-        const verificationToken = jwt.sign({ email: user.email }, process.env.JWT_KEY, {
-            expiresIn: '1d',
-        });
-
-        const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
-            secure: false,
-            requireTLS: true,
-            auth: {
-                user: 'studymateeasy@gmail.com',
-                pass: 'wkpewbtrruybpzjj'
-            }
-        });
-
-        const mailOptions = {
-            from: 'studymateeasy@gmail.com',
-            to: email,
-            subject: 'Unlock the Full Potential: Verify Your Email with PromptAbide!',
-            html: `<p>Dear ${user.firstname},</p>
-                   <p>Welcome to PromptAbide, your gateway to a world of collaborative AI innovation!</p>
-                   <p>We're ecstatic to have you on board. Elevate your experience by verifying your email now – just a click away 
-                   <a href="https://promptabide.vercel.app/verify-email/?token=${verificationToken}">here</a>.</p>
-                   <p><strong>Why Verify Your Email?</strong></p>
-                   <p>Securing your account ensures you receive exclusive updates, notifications, and personalized recommendations designed just for you.</p>
-                   <p>Your journey with PromptAbide is about to unfold, and we're here to champion every step you take.</p>
-                   <p>Thank you for becoming part of our vibrant community of learners!</p>
-                   <p>Best Regards,<br/>The PromptAbide Team</p>`,
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.error(error);
-                res.status(500).send('Error sending verification email');
-            } else {
-                console.log('Email sent: ' + info.response);
-                res.status(200).send({ message: 'User registered. Check your email for verification.' });
-            }
-        });
+        res.status(200).send({ message: 'User registered. Check your email for verification.' });
+        
     } catch (error) {
         console.error(error);
         res.status(500).send('Error registering user');
